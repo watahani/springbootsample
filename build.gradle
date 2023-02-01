@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.wahaniya'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudAzureVersion', "4.4.1")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'com.azure.spring:spring-cloud-azure-starter-storage'
+	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.2.1.jre11'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:${springCloudAzureVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
